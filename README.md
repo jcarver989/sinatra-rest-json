@@ -41,7 +41,7 @@ rest_json Product
 ```
 ### 3. Profit
 
-#### Now your app automatically has the following routes which returns JSON data from your model (routes are based on your ActiveRecord table name):
+Now your app automatically has the following routes which returns JSON data from your model (routes are based on your ActiveRecord table name):
 
 - **GET** /products (all)
 - **GET** /products/:id (find)
