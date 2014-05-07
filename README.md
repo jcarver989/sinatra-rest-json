@@ -41,7 +41,7 @@ rest_json Product
 ```
 ### 3. Profit
 
-#### Now your app automatically has the following routes which returns JSON data from your model:
+#### Now your app automatically has the following routes which returns JSON data from your model (routes are based on your ActiveRecord table name):
 
 - **GET** /products (all)
 - **GET** /products/:id (find)
@@ -49,7 +49,7 @@ rest_json Product
 - **POST** /products (create)
 - **PUT** /products/:id (update)
 
-- **DELETE** /people/:id (destroy)
+- **DELETE** /products/:id (destroy)
 
 
 *Note for POST/PUT operations the data parameters should be like so: { product: { name: "foo", price: 1 }}
