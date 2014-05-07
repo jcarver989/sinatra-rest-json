@@ -54,30 +54,30 @@ describe "app" do
     end
   end
 
-  describe "PUT /foo_models" do
+  describe "POST /foo_models" do
     it "should create a new model" do
       assert_equal FooModel.all.size, 0 
-      put "/foo_models", { :foo_model => { :name => "foo1" } }
+      post "/foo_models", { :foo_model => { :name => "foo1" } }
       assert_equal last_response.body, "{\"id\":1,\"name\":\"foo1\"}"
       assert_equal FooModel.all.size, 1
     end
 
     it "should send back errors when validation fails" do
-      put "/foo_models", { :foo_model => { :name => nil } }
+      post "/foo_models", { :foo_model => { :name => nil } }
       assert_equal last_response.body, "{\"errors\":[{\"name\":\"cant be blank\"}]}"
     end
   end
 
 
-  describe "POST /foo_models/:id" do
+  describe "PUT /foo_models/:id" do
     it "should give error when not found" do
-      post "/foo_models/1", { :name => "boo" }
+      put "/foo_models/1", { :name => "boo" }
       assert_equal last_response.body, "{\"errors\":[\"record doesn\'t exist\"]}"
     end
 
     it "should update model when it exists" do
       FooModel.create(:name => "foo1")
-      post "/foo_models/1", { :foo_model => { :name => "boo" } }
+      put "/foo_models/1", { :foo_model => { :name => "boo" } }
       assert_equal last_response.body, "{\"id\":1,\"name\":\"boo\"}"
     end
   end
