@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'sinatra-rest-json'
-  s.version     = '0.1'
+  s.version     = '0.2'
 
   s.date        = '2014-05-05'
   s.summary     = "Easy rest routes for Sinatra Applciations"
