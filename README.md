@@ -3,7 +3,7 @@
 
 Getting started
 
-1. Setup your Gemfile
+## 1. Setup your Gemfile
 
 ```ruby
 # Gemfile
@@ -15,7 +15,7 @@ gem "json"
 
 ```
 
-2. Setup your Sinatra App
+## 2. Setup your Sinatra App
 
 ```ruby
 require 'sinatra'
@@ -39,15 +39,17 @@ end
 # Set up your REST routes
 rest_json Product
 ```
-3. Profit
-Now your app automatically has the following routes:
-- GET /products (all)
-- GET /products/:id (find)
+## 3. Profit
 
-- POST /products (create)
-- PUT /products/:id (update)
+### Now your app automatically has the following routes which returns JSON data from your model:
 
-- DELETE /people/:id (destroy)
+- **GET** /products (all)
+- **GET** /products/:id (find)
+
+- **POST** /products (create)
+- **PUT** /products/:id (update)
+
+- **DELETE** /people/:id (destroy)
 
 
 *Note for POST/PUT operations the data parameters should be like so: { product: { name: "foo", price: 1 }}
