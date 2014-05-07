@@ -4,7 +4,7 @@ require 'rack/test'
 require "minitest/autorun"
 
 require 'sinatra/base'
-require 'sinatra/rest-json'
+require 'sinatra/rest_json'
 require 'json'
 
 require File.join(File.dirname(__FILE__), "helper")
@@ -13,6 +13,7 @@ class TestApp < Sinatra::Base
   register Sinatra::REST
   rest_json FooModel
 end
+
 
 
 describe "app" do 
@@ -103,5 +104,71 @@ describe "app" do
       assert_equal FooModel.all.size, 0 
     end
   end
+end
 
+
+class AuthenticatedTestApp < Sinatra::Base
+  register Sinatra::REST
+  rest_json FooModel, :authenticate => {
+    :all => lambda { true },
+    :find => lambda { true },
+    :create => lambda { false },
+    :update => lambda { false },
+    :delete => lambda { false }
+  }
+end
+
+describe "authenticated app" do
+  include Rack::Test::Methods
+
+  def app
+    AuthenticatedTestApp
+  end
+
+  before do
+    FooModel.destroy_all
+  end
+
+
+  describe "GET /" do
+    it "should allow all when data" do
+      FooModel.create(:name => "foo1")
+
+      get "/foo_models"
+      assert_equal last_response.status, 200
+    end
+  end
+
+  describe "GET /foo_models/:id" do
+    it "should allow finding a model" do
+      FooModel.create(:name => "foo1")
+      get "/foo_models/1"
+      assert_equal last_response.status, 200
+    end
+  end
+
+  describe "POST /foo_models" do
+    it "should not allow creation" do
+      assert_equal FooModel.all.size, 0 
+      post "/foo_models", { :foo_model => { :name => "foo1" } }
+      assert_equal last_response.status, 401
+    end
+  end
+
+
+   describe "PUT /foo_models/:id" do
+    it "should not allow updating" do
+      FooModel.create(:name => "foo1")
+      put "/foo_models/1", { :foo_model => { :name => "boo" } }
+      assert_equal last_response.status, 401
+    end
+  end
+
+  describe "DELETE /foo_models/:id" do
+    it "should now allow deletion" do
+      FooModel.create(:name => "foo1")
+      delete "/foo_models/1"
+      assert_equal last_response.status, 401
+    end
+  end
 end
