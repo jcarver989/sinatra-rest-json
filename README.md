@@ -71,5 +71,5 @@ rest_json Product, :authenticate => {
 }
 ```
 
-You can pass in any ruby object that has a call method whic returns a value (e.g. proc or lambda). Naturally you can drop in whatever authentication you'd like
+You can pass in any ruby object that has a call method which returns a value (e.g. proc or lambda). Naturally you can drop in whatever authentication you'd like
 
